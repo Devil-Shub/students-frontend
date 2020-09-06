@@ -1,0 +1,75 @@
+<div class="container-fluid setMrgn">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <button [routerLink]="['']" type="button" class="btn btn-info setPosition">&laquo; Back</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+            <div *ngIf="message != ''" class="alert alert-{{addClass}}" role="alert">
+                {{message}}
+            </div>
+
+            <form (ngSubmit)="saveStudent()">
+
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input [(ngModel)]="studentFormInfo.first_name" name="first_name" type="text" class="form-control">
+
+                    <div *ngIf="submitted && studentFormInfo.first_name == ''" class="invalid-feedback">
+                        Student first name is required!
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input [(ngModel)]="studentFormInfo.last_name" name="last_name" type="text" class="form-control">
+
+                    <div *ngIf="submitted && studentFormInfo.last_name == ''" class="invalid-feedback">
+                        Student last name is required!
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Class:</label>
+                    <input type="text" [(ngModel)]="studentFormInfo.class" name="class" class="form-control">
+
+                    <div *ngIf="submitted && studentFormInfo.class == ''" class="invalid-feedback">
+                        Student class name is required!
+                    </div>
+
+                </div>
+
+                 <div class="form-group" *ngFor="let student of studentFormInfo.studentDetails; let i = index;">                    
+                    <button type="button" class="btn btn-danger btn-sm btnMrgn setBtn" (click)="removeSubject(i)">Remove</button>
+                    
+                    <label for="last_name">Subject:</label>
+                    <input class="form-control" type="text" [(ngModel)]="student.subject" name="student_{{i}}"/>
+
+                    <label for="last_name">Marks:</label>
+                    <input class="form-control" type="text" [(ngModel)]="student.marks" name="street_{{i}}"/>
+                </div>
+
+                <div *ngIf="submitted && (studentFormInfo.studentDetails.length == 0 || (studentFormInfo.studentDetails[0].subject == '' || studentFormInfo.studentDetails[0].marks == ''))" class="invalid-feedback">
+                    Atleast one subject and marks are required!
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-info" (click)="addSubject()">Add More</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success setBtn">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
